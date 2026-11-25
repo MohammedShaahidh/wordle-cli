@@ -5,6 +5,7 @@ from pathlib import Path
 
 from game import MAX_GUESSES, Game, load_words
 from history import GameHistory
+from stats import GameStats
 
 
 def display_welcome() -> None:
@@ -20,18 +21,18 @@ def display_welcome() -> None:
     print("=" * 44)
 
 
-def display_stats(history: GameHistory) -> None:
+def display_stats(stats: GameStats) -> None:
     """Print player career statistics to the console.
 
     Args:
         history: The GameHistory instance containing recorded games.
     """
     print("\n" + "=" * 16 + " CAREER STATS " + "=" * 16)
-    print(f"Total games played : {history.total_games}")
-    print(f"Total wins         : {history.total_wins}")
-    print(f"Win percentage     : {history.win_percentage:.1f}%")
-    print(f"Current streak     : {history.current_streak}")
-    print(f"Best streak        : {history.best_streak}")
+    print(f"Total games played : {stats.total_games}")
+    print(f"Total wins         : {stats.total_wins}")
+    print(f"Win percentage     : {stats.win_percentage:.1f}%")
+    print(f"Current streak     : {stats.current_streak}")
+    print(f"Best streak        : {stats.best_streak}")
     print("=" * 46)
 
 
@@ -47,6 +48,7 @@ def main() -> None:
     secret_word = random.choice(words)
     game = Game(secret_word=secret_word, word_list=words)
     history = GameHistory()
+    stats = GameStats(history)
 
     display_welcome()
 
@@ -76,7 +78,7 @@ def main() -> None:
         word=game.secret_word,
     )
     print("\nGame recorded in history.")
-    display_stats(history)
+    display_stats(stats)
 
 
 if __name__ == "__main__":
